@@ -22,7 +22,7 @@ public class Turn {
     }
 
     public Move[] bestMove(Pod pod1, Pod pod2) {
-        System.err.println("1 "+elapsedTime());
+        System.err.println("1 " + elapsedTime());
         betterSolution = 0;
         mutationCount = 0;
         betterFromNewGeneration = 0;
@@ -35,6 +35,7 @@ public class Turn {
         pod2.restore();
 
         boolean newGenerated = false;
+        amplitude = Constant.AMPLITUDE;
 
         while (elapsedTime() < Constant.MAX_TIME_FOR_MUTATION) {
             mutationCount++;
@@ -44,11 +45,11 @@ public class Turn {
             mutateOneSolution(populationsForPod1, i);
             mutateOneSolution(populationsForPod2, i);
 
-            if (!newGenerated) {
+            if (amplitude > 0.1) {
                 createNewSolution(pod1, populationsForPod1);
                 createNewSolution(pod2, populationsForPod2);
-                newGenerated = true;
             }
+
 
             if (Constant.boostAvailable) {
                 createBoostedSolution(pod1, populationsForPod1);

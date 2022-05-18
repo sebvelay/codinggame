@@ -5,7 +5,7 @@ public class Constant {
     public static final double EPSILON = 0.00001;
     public static int DEEP_MOVE = 5;
     public static final double AMPLITUDE = 1;
-    public static final double AMPLITUDE_PAS = 0.01;
+    public static final double AMPLITUDE_PAS = 0.1;
     public static final int PAS_THRUST =10;
     public static final int PAS_ANGLE = 2;
 
