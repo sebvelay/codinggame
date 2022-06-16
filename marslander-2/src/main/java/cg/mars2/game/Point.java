@@ -1,5 +1,8 @@
 package cg.mars2.game;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.acos;
+
 public class Point {
     public double x;
     public double y;
@@ -7,6 +10,10 @@ public class Point {
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void debug(String name) {
+        System.err.println(name + " : x: " + this.x + " y : " + this.y);
     }
 
     public double distance2(Point p) {
@@ -17,10 +24,13 @@ public class Point {
         return Math.sqrt(this.distance2(p));
     }
 
-    public double getAngle(Point p2){
-        double dx = p2.x-x;
-        double dy = p2.y-y;
-        double angle = Math.atan2(dy, dx);
+    public double getAngle(Point p2) {
+
+        double d = this.distance(p2);
+
+        double dx = (p2.x - x) / d;
+        double dy = (p2.y - y) / d;
+        double angle = acos(dy) * 180.0 / PI;
         if (angle < 0) {
             angle += 360;
         }

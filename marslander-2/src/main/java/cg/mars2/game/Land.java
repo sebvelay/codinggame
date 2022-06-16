@@ -16,9 +16,6 @@ public class Land {
             }
         }
 
-        double x = p2.x - ((p2.x - p1.x) / 2);
-        target = new Point(x, p1.y);
+        target=p1;
     }
-
-
 }
