@@ -185,7 +185,7 @@ public class Capsule extends Point {
 
 
         double score =
-                -distance(new Point(target.x, this.y));
+                -distanceY(target);
 
         if (Math.abs(verticalSpeed) > 40) {
             score -= Math.abs(verticalSpeed) * 10000;

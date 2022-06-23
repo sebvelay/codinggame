@@ -24,6 +24,10 @@ public class Point {
         return Math.sqrt(this.distance2(p));
     }
 
+    public double distanceY(Point p) {
+        return Math.abs(this.y) - Math.abs(p.y);
+    }
+
     public double getAngle(Point p2) {
 
         double d = this.distance(p2);
