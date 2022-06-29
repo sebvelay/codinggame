@@ -7,12 +7,20 @@ public class Map {
 
     static public Point[] points;
     static Land land;
+    static Point sommet;
 
 
     public Map(Point[] points) {
         this.points = points;
 
         land = new Land(this.points);
+
+        sommet = points[0];
+        for (Point p : points) {
+            if (p.y > sommet.y) {
+                sommet = p;
+            }
+        }
     }
 
     public Point getTarget() {

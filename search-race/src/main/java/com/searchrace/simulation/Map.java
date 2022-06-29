@@ -1,4 +1,7 @@
-package com.searchrace.game;
+package com.searchrace.simulation;
+
+
+import com.searchrace.game.Checkpoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +12,6 @@ public class Map {
     private static List<Checkpoint> checkpoints = new ArrayList<>();
 
     public static void addCheckpoints(Checkpoint checkpoint) {
-
         checkpoints.add(checkpoint);
 
     }
@@ -28,7 +30,7 @@ public class Map {
         for (int i = 0; i < checkpoints.size(); i++) {
             if (checkpoints.get(i).equals(nextCheckpoint)) {
                 if (i + 1 >= checkpoints.size()) {
-                    return checkpoints.get(0);
+                    return null;
                 } else {
                     return checkpoints.get(i + 1);
                 }

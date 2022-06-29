@@ -1,5 +1,6 @@
 package com.codinggame.simulation;
 
+import com.codinggame.Player;
 import com.codinggame.game.Pod;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,8 +14,10 @@ public class Turn {
 
     public static void startChrono() {
         start = System.currentTimeMillis();
-        System.err.println("start " + start);
-        System.err.println("MAX_TIME_FOR_MUTATION " + Constant.MAX_TIME_FOR_MUTATION);
+        if (Constant.DEBUG) {
+            System.err.println("start " + start);
+            System.err.println("MAX_TIME_FOR_MUTATION " + Constant.MAX_TIME_FOR_MUTATION);
+        }
     }
 
     public static long elapsedTime() {
@@ -22,7 +25,9 @@ public class Turn {
     }
 
     public Move[] bestMove(Pod pod1, Pod pod2) {
-        System.err.println("1 " + elapsedTime());
+        if (Constant.DEBUG) {
+            System.err.println("1 " + elapsedTime());
+        }
         betterSolution = 0;
         mutationCount = 0;
         betterFromNewGeneration = 0;
@@ -37,7 +42,7 @@ public class Turn {
         boolean newGenerated = false;
         amplitude = Constant.AMPLITUDE;
 
-        while (elapsedTime() < Constant.MAX_TIME_FOR_MUTATION) {
+        while ((Player.turnNumber == 1 && elapsedTime() < Constant.MAX_TIME_FOR_MUTATION_TURN_1) || (elapsedTime() < Constant.MAX_TIME_FOR_MUTATION)) {
             mutationCount++;
 
             int i = ThreadLocalRandom.current().nextInt(0, populationsForPod1.length);
@@ -57,10 +62,12 @@ public class Turn {
 
 
         }
-        System.err.println(elapsedTime());
-        System.err.println("mutation : " + mutationCount);
-        System.err.println("betterSolution : " + betterSolution);
-        System.err.println("betterFromNewGeneration : " + betterFromNewGeneration);
+        if (Constant.DEBUG) {
+            System.err.println(elapsedTime());
+            System.err.println("mutation : " + mutationCount);
+            System.err.println("betterSolution : " + betterSolution);
+            System.err.println("betterFromNewGeneration : " + betterFromNewGeneration);
+        }
 
         Population best1 = getBestSolution(populationsForPod1);
         Population best2 = getBestSolution(populationsForPod2);
@@ -68,8 +75,10 @@ public class Turn {
         Simulation.previousForPod1 = populationsForPod1;
         Simulation.previousForPod2 = populationsForPod2;
 
-        System.err.println("best score 1 : " + best1.score);
-        System.err.println("best score 2 : " + best2.score);
+        if (Constant.DEBUG) {
+            System.err.println("best score 1 : " + best1.score);
+            System.err.println("best score 2 : " + best2.score);
+        }
 
         Move[] bestMoves = new Move[2];
         bestMoves[0] = best1.moves[0];

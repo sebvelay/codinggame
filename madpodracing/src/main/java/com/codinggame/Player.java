@@ -10,7 +10,6 @@ import com.codinggame.simulation.Turn;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Timer;
 
 public class Player {
     public static int turnNumber = 0;
@@ -18,10 +17,14 @@ public class Player {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
 
+        boolean timerStarted = false;
 
         Turn turn = new Turn();
 
         int laps = in.nextInt();
+        Turn.startChrono();
+        timerStarted = true;
+
         Constant.NB_TURN = laps;
         int checkpointCount = in.nextInt();
         for (int i = 0; i < checkpointCount; i++) {
@@ -29,17 +32,17 @@ public class Player {
             int checkpointY = in.nextInt();
             Checkpoint checkpoint = new Checkpoint(i, checkpointX, checkpointY);
             Map.addCheckpoints(checkpoint);
-            System.err.println("checkpoint : " + checkpoint.x + " " + checkpoint.y);
         }
+        Map.finalizeMap(Constant.NB_TURN);
+        Map.debug();
 
         // game loop
         while (true) {
             turnNumber++;
-            boolean timerStarted = false;
             List<Pod> podList = new ArrayList<>();
             for (int i = 0; i < 2; i++) {
                 int x = in.nextInt(); // x position of your pod
-                if(timerStarted == false) {
+                if (timerStarted == false) {
                     Turn.startChrono();
                     timerStarted = true;
                 }
@@ -52,7 +55,7 @@ public class Player {
                 int nextCheckPointId = in.nextInt(); // next check point id of your pod
                 Pod pod = new Pod(i, x, y, vx, vy, angle, Map.getCheckpoints().get(nextCheckPointId));
                 podList.add(pod);
-                System.err.println("pod :" + i + " " + pod.x + " " + pod.y + " " + pod.vx + " " + pod.vy + " " + pod.angle + " target:" + nextCheckPointId);
+                pod.debug();
             }
             for (int i = 0; i < 2; i++) {
                 int x2 = in.nextInt(); // x position of the opponent's pod
@@ -71,19 +74,12 @@ public class Player {
             Pod pod2 = podList.get(1);
             pod2.setOtherPods(podList);
 
+            timerStarted = false;
 
-            if(turnNumber == 1) {
-               System.out.println((int)pod1.getNextCheckpoint().x+" "+(int)pod1.getNextCheckpoint().y+" 100");
-               System.out.println((int)pod2.getNextCheckpoint().x+" "+(int)pod2.getNextCheckpoint().y+" 100");
-            }else {
-                Move[] move = turn.bestMove(pod1, pod2);
+            Move[] move = turn.bestMove(pod1, pod2);
 
-                System.out.println(pod1.getActionString(move[0]));
-                System.out.println(pod2.getActionString(move[1]));
-            }
-
-
-
+            System.out.println(pod1.getActionString(move[0]));
+            System.out.println(pod2.getActionString(move[1]));
 
 
         }

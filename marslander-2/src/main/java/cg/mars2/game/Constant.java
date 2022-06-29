@@ -16,5 +16,5 @@ public class Constant {
 
     public static double LOOSE = -1000000000;
 
-    public static double WON = 10000;
+    public static double WON = 1000000;
 }

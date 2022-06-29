@@ -67,6 +67,10 @@ public class Player {
 
             // R P. R is the desired rotation angle. P is the desired thrust power.
             Chrono.stopChrono();
+
+
+            System.err.println("x "+capsule.distanceX(map.getTarget()));
+            System.err.println("Y "+capsule.distanceY(map.getTarget()));
             System.out.println(move.rotate + " " + move.power);
         }
     }

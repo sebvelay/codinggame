@@ -168,7 +168,7 @@ public class Capsule extends Point {
             if (Math.abs(horizontalSpeed) > 20) {
                 scoreWon -= Math.abs(horizontalSpeed);
             }
-            scoreWon -= Math.abs(rotation);
+            scoreWon -= Math.abs(rotation) * 100;
 
             return scoreWon;
         }
@@ -181,18 +181,28 @@ public class Capsule extends Point {
             return Constant.LOOSE;
         }
 
-        //double score = -distance(this.target);
-
-
+        double distanceX = distanceX(target);
         double score =
-                -distanceY(target);
+                -distanceX
+                        - fuel;
 
-        if (Math.abs(verticalSpeed) > 40) {
-            score -= Math.abs(verticalSpeed) * 10000;
+        if (this.x > Map.land.p1.x && this.x < Map.land.p2.x) {
+            score -= distanceY(target);
+
+            if (Math.abs(verticalSpeed) > 40) {
+                score -= Math.abs(verticalSpeed) * 10000;
+            }
+            if (Math.abs(horizontalSpeed) > 20) {
+                score -= Math.abs(horizontalSpeed) * 10000;
+            }
+
+
+        } else {
+            if (this.y < Map.sommet.y) {
+                score += distanceY(target);
+            }
         }
-        if (Math.abs(horizontalSpeed) > 20) {
-            score -= Math.abs(horizontalSpeed) * 10000;
-        }
+
 
         return score;
     }

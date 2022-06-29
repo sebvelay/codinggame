@@ -1,5 +1,6 @@
 package com.searchrace.math;
 
+
 import com.searchrace.simulation.Constant;
 
 public class LightNumber {

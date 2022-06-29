@@ -68,12 +68,16 @@ public class Pod extends Unit {
         }
 
         if (LAP_POD_0 == 3 && LAST_CHECKPOINT_ID_POD_0 == 0) {
-            System.err.println("LAST CHECKPOINT FOR POD 0");
+            if (Constant.DEBUG) {
+                System.err.println("LAST CHECKPOINT FOR POD 0");
+            }
             isLastCheckpointForPod0 = true;
         }
 
         if (LAP_POD_1 == 3 && LAST_CHECKPOINT_ID_POD_1 == 0) {
-            System.err.println("LAST CHECKPOINT FOR POD 1");
+            if (Constant.DEBUG) {
+                System.err.println("LAST CHECKPOINT FOR POD 1");
+            }
             isLastCheckpointForPod1 = true;
         }
 
@@ -270,7 +274,9 @@ public class Pod extends Unit {
         if (Player.turnNumber == 1) {
             this.angle = this.getAngleToNextCheckpoint();
 
-            System.err.println("correct the angle to next checkpoint : " + this.angle);
+            if (Constant.DEBUG) {
+                System.err.println("correct the angle to next checkpoint : " + this.angle);
+            }
         }
     }
 
@@ -312,7 +318,9 @@ public class Pod extends Unit {
     }
 
     public String getActionString(Move move) {
-        System.err.println(move.angle + " " + move.thrust);
+        if (Constant.DEBUG) {
+            System.err.println(move.angle + " " + move.thrust);
+        }
         double a = angle + move.angle;
 
         if (a >= 360.0) {
@@ -366,5 +374,11 @@ public class Pod extends Unit {
         this.nextCheckpoint = this.saveNextCheckpoint;
         this.checked = this.saveChecked;
         this.collisionWithPod = this.savecollisionWithPod;
+    }
+
+    public void debug() {
+        if (Constant.DEBUG) {
+            System.err.println("pod :" + this.id + " " + this.x + " " + this.y + " " + this.vx + " " + this.vy + " " + this.angle + " target:" + this.nextCheckpoint.id);
+        }
     }
 }

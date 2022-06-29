@@ -1,5 +1,6 @@
 package com.searchrace.game;
 
+
 import com.searchrace.simulation.Constant;
 
 public class Unit extends Point {

@@ -1,5 +1,6 @@
 package com.searchrace.simulation;
 
+import com.searchrace.Player;
 import com.searchrace.game.Pod;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,6 +14,8 @@ public class Turn {
 
     public static void startChrono() {
         start = System.currentTimeMillis();
+        System.err.println("start " + start);
+        System.err.println("MAX_TIME_FOR_MUTATION " + Constant.MAX_TIME_FOR_MUTATION);
     }
 
     public static long elapsedTime() {
@@ -20,6 +23,7 @@ public class Turn {
     }
 
     public Move[] bestMove(Pod pod1) {
+        System.err.println("1 " + elapsedTime());
         betterSolution = 0;
         mutationCount = 0;
         betterFromNewGeneration = 0;
@@ -29,18 +33,19 @@ public class Turn {
         pod1.restore();
 
         boolean newGenerated = false;
+        amplitude = Constant.AMPLITUDE;
 
-        while (elapsedTime() < Constant.MAX_TIME_FOR_MUTATION) {
+        while ((Player.turnNumber == 0 && elapsedTime() < Constant.MAX_TIME_FIRST_TURN) || (elapsedTime() < Constant.MAX_TIME_FOR_MUTATION)) {
             mutationCount++;
 
             int i = ThreadLocalRandom.current().nextInt(0, populationsForPod1.length);
 
             mutateOneSolution(populationsForPod1, i);
 
-            if (!newGenerated) {
+            if (amplitude > 0.1) {
                 createNewSolution(pod1, populationsForPod1);
-                newGenerated = true;
             }
+
 
             if (Constant.boostAvailable) {
                 createBoostedSolution(pod1, populationsForPod1);
@@ -48,6 +53,7 @@ public class Turn {
 
 
         }
+        System.err.println(elapsedTime());
         System.err.println("mutation : " + mutationCount);
         System.err.println("betterSolution : " + betterSolution);
         System.err.println("betterFromNewGeneration : " + betterFromNewGeneration);
@@ -57,12 +63,6 @@ public class Turn {
         Simulation.previousForPod1 = populationsForPod1;
 
         System.err.println("best score 1 : " + best1.score);
-        System.err.println("complete simulation : ");
-        //for each move on best1
-        for (int i = 0; i < best1.moves.length; i++) {
-            System.err.println("move : " + i + " angle : " + best1.moves[i].angle + " thrust : " + best1.moves[i].thrust);
-        }
-
 
         Move[] bestMoves = new Move[2];
         bestMoves[0] = best1.moves[0];

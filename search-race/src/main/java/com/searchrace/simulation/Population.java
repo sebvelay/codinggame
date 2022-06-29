@@ -95,15 +95,10 @@ public class Population {
 
         for (int i = 0; i < moves.length; i++) {
 
-            double angle = 0;
-            //je peux rotate autant que je veux
-            if (pod.vx == 0 && pod.vy == 0) {
-                angle = pod.getAngleToNextCheckpoint();
-            } else {
-                angle = pod.getRotationToNextCheckpoint();
-            }
+            double angle = initialPod.getRotationToNextCheckpoint();
 
-            int thrust = Constant.MAX_THRUST;
+
+            int thrust = (int) (Constant.MAX_THRUST * amplitude);
 
             moves[i] = new Move(angle, thrust);
             pod.apply(moves[i], i);

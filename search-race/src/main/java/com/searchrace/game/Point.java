@@ -17,7 +17,7 @@ public class Point {
         return Math.sqrt(this.distance2(p));
     }
 
-    public double geAngle(Point p2){
+    public double getAngle(Point p2){
         double dx = p2.x-x;
         double dy = p2.y-y;
         double angle = Math.atan2(dy, dx);

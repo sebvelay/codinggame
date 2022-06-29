@@ -29,7 +29,6 @@ public class Move {
         }
     }
 
-
     protected void mutateThurst(double amplitude) {
 
         int pmin = 0;

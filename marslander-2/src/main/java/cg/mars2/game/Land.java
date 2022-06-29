@@ -1,10 +1,9 @@
 package cg.mars2.game;
 
 public class Land {
+    public Point target;
     Point p1;
     Point p2;
-
-    public Point target;
 
     public Land(Point[] points) {
         //for each points
@@ -16,6 +15,6 @@ public class Land {
             }
         }
 
-        target=p1;
+        target = new Point(p1.x + ((p2.x - p1.x) / 2), p1.y);
     }
 }

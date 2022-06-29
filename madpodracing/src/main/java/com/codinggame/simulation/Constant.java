@@ -9,7 +9,8 @@ public class Constant {
     public static final int PAS_THRUST =10;
     public static final int PAS_ANGLE = 2;
 
-    public static final long MAX_TIME_FOR_MUTATION =69;
+    public static final long MAX_TIME_FOR_MUTATION =70;
+    public static final long MAX_TIME_FOR_MUTATION_TURN_1 =900;
     public static boolean DEBUG = false;
     public static boolean boostAvailable = true;
     public static final int COLISION_CHECKPOINT_DISTANCE2 = 595;

@@ -1,8 +1,11 @@
 package com.searchrace.game;
 
+
+import com.searchrace.Player;
 import com.searchrace.math.LightNumber;
 import com.searchrace.math.Vector;
 import com.searchrace.simulation.Constant;
+import com.searchrace.simulation.Map;
 import com.searchrace.simulation.Move;
 
 import java.util.ArrayList;
@@ -15,7 +18,13 @@ import static java.lang.Math.sin;
 
 
 public class Pod extends Unit {
-
+    //to manage last lap ...
+    public static int LAP_POD_0 = 1;
+    public static int LAP_POD_1 = 1;
+    public static int LAST_CHECKPOINT_ID_POD_0 = 1;
+    public static int LAST_CHECKPOINT_ID_POD_1 = 1;
+    public static boolean isLastCheckpointForPod0 = false;
+    public static boolean isLastCheckpointForPod1 = false;
     //
     public boolean collisionWithPod = false;
     public int checked;
@@ -41,6 +50,33 @@ public class Pod extends Unit {
         this.angle = angle;
         this.setCheckpoint(nextCheckpoint);
         this.collisionWithPod = false;
+
+
+        /**
+         * dirty code, but may be efficient ...
+         */
+        if (id == 0) {
+            if (nextCheckpoint.id == 1 && LAST_CHECKPOINT_ID_POD_0 != 1) {
+                LAP_POD_0++;
+            }
+            LAST_CHECKPOINT_ID_POD_0 = nextCheckpoint.id;
+
+        } else {
+            if (nextCheckpoint.id == 1 && LAST_CHECKPOINT_ID_POD_1 != 1) {
+                LAP_POD_1++;
+            }
+            LAST_CHECKPOINT_ID_POD_1 = nextCheckpoint.id;
+        }
+
+        if (LAP_POD_0 == 3 && LAST_CHECKPOINT_ID_POD_0 == 0) {
+            System.err.println("LAST CHECKPOINT FOR POD 0");
+            isLastCheckpointForPod0 = true;
+        }
+
+        if (LAP_POD_1 == 3 && LAST_CHECKPOINT_ID_POD_1 == 0) {
+            System.err.println("LAST CHECKPOINT FOR POD 1");
+            isLastCheckpointForPod1 = true;
+        }
 
     }
 
@@ -229,19 +265,28 @@ public class Pod extends Unit {
     }
 
     public void setCheckpoint(Checkpoint checkpoint) {
+
+
         this.nextCheckpoint = checkpoint;
+        if (Player.turnNumber == 1) {
+            this.angle = this.getAngleToNextCheckpoint();
+
+            System.err.println("correct the angle to next checkpoint : " + this.angle);
+        }
     }
 
     public double getScore() {
         if (this.nextCheckpoint == null) {
             return (checked * 50000);
         }
-        double distanceToNextCheckpoint = this.distance(this.nextCheckpoint);
-
-
+        double distanceToNextCheckpoint = 0;
+        double angleToNextCheckpoint = 0;
+        if (nextCheckpoint != null) {
+            distanceToNextCheckpoint = this.distance(this.nextCheckpoint);
+            angleToNextCheckpoint = this.getAngleToNextCheckpoint();
+        }
         double vitesse = Vector.speed(vx, vy);
 
-        double angleToNextCheckpoint = this.getAngleToNextCheckpoint();
         if (angleToNextCheckpoint >= 360) {
             angleToNextCheckpoint = 0;
         }
@@ -249,7 +294,7 @@ public class Pod extends Unit {
         return (checked * 50000)
                 - distanceToNextCheckpoint
                 - (Math.abs(angleToNextCheckpoint) * 50)
-                + (vitesse);
+                + (vitesse * 2);
     }
 
     public Checkpoint getNextCheckpoint() {
@@ -263,7 +308,10 @@ public class Pod extends Unit {
      */
     public double getAngleToNextCheckpoint() {
         Checkpoint p = this.getNextCheckpoint();
-        return this.geAngle(p);
+        if (p == null) {
+            System.err.println("next checkpoint is null");
+        }
+        return this.getAngle(p);
     }
 
     public String getActionString(Move move) {
