@@ -1,7 +1,7 @@
 package com.codinggame.simulation;
 
 public class Constant {
-    public static final int POPULATION_SIZE = 5;
+    public static final int POPULATION_SIZE = 1;
     public static final double EPSILON = 0.00001;
     public static int DEEP_MOVE = 5;
     public static final double AMPLITUDE = 1;

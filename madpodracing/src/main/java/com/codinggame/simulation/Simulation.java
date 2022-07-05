@@ -17,9 +17,11 @@ public class Simulation {
         //racourics douteux : le premier et le second ne seront plus null en même temps
         if (previousForPod1 == null) {
             for (int i = 0; i < populations.length; i++) {
+
                 populations[i] = Population.generate(pod);
 
                 populations[i].score();
+
             }
         } else {
             //on génére depuis l'ancien

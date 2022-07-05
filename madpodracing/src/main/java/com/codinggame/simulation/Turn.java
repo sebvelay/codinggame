@@ -150,7 +150,7 @@ public class Turn {
 
     }
 
-    private void mutateOneSolution(Population[] populations, int i) {
+    public void mutateOneSolution(Population[] populations, int i) {
         Population popToMutate = populations[i].clone();
 
         //mutate solution

@@ -33,6 +33,7 @@ public class Capsule extends Point {
 
     boolean crossLand = false;
     boolean save_crossLand = false;
+    private boolean won = false;
 
 
     public Capsule(double x, double y, int horizontalSpeed, int verticalSpeed, int fuel, int rotation, int power) {
@@ -56,6 +57,10 @@ public class Capsule extends Point {
     }
 
     public void apply(Move move) {
+
+        if (this.crossLand) {
+            return;
+        }
 
         Point departure = new Point(this.x, this.y);
 
@@ -94,8 +99,12 @@ public class Capsule extends Point {
 
         if (Player.map.crossLand(departure, destination)) {
             crossLand = true;
+            if ((Math.abs(verticalSpeed) < 40) && (Math.abs(horizontalSpeed) < 20) && (Math.abs(this.rotation) == 0)) {
+                this.won = true;
+                return;
+            }
         }
-
+        this.won = false;
         if (!Player.map.safeZone(departure, destination) && !crossLand) {
             dead = true;
         }
@@ -158,8 +167,14 @@ public class Capsule extends Point {
 
     public double getScore() {
 
+        if (won) {
+            return Constant.WON;
+        }
+        if (dead) {
+            return Constant.LOOSE;
+        }
 
-        if (crossLand) {
+        /*if (crossLand) {
             double scoreWon = Constant.WON;
 
             if (Math.abs(verticalSpeed) > 40) {
@@ -171,11 +186,8 @@ public class Capsule extends Point {
             scoreWon -= Math.abs(rotation) * 100;
 
             return scoreWon;
-        }
+        }*/
 
-        if (dead) {
-            return Constant.LOOSE;
-        }
 
         if (fuel <= 0) {
             return Constant.LOOSE;
@@ -199,7 +211,7 @@ public class Capsule extends Point {
 
         } else {
             if (this.y < Map.sommet.y) {
-                score += distanceY(target);
+                score += distanceY(target)*100;
             }
         }
 

@@ -95,12 +95,22 @@ public class Population {
 
         for (int i = 0; i < moves.length; i++) {
 
-            double angle = initialPod.getRotationToNextCheckpoint();
+            // double angle = this.pod.getRotationToNextCheckpoint();
+            /*double diff = this.pod.diffAngleWithNextCheckpoint();
+
+            double angleToRotate = this.pod.angle - diff;
+            if (angleToRotate > 18) {
+                angleToRotate = 18;
+            }
+            else if (angleToRotate < -18) {
+                angleToRotate = -18;
+            }*/
 
 
             int thrust = (int) (Constant.MAX_THRUST * amplitude);
 
-            moves[i] = new Move(angle, thrust);
+
+            moves[i] = new Move(0, thrust);
             pod.apply(moves[i], i);
         }
         this.score();

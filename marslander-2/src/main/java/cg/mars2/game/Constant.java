@@ -8,7 +8,7 @@ public class Constant {
     public static final int ANGLE_MIN = -45;
     public static final int ANGLE_MAX = 45;
     public static final int MAX_THRUST = 4;
-    public static int DEEP_MOVE = 5;
+    public static int DEEP_MOVE = 30;
     public static int POPULATION_SIZE = 3;
     public static int NB_TURN;
 

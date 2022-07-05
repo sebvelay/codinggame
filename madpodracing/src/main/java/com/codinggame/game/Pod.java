@@ -289,14 +289,11 @@ public class Pod extends Unit {
 
         double vitesse = Vector.speed(vx, vy);
 
-        double angleToNextCheckpoint = this.getAngleToNextCheckpoint();
-        if (angleToNextCheckpoint >= 360) {
-            angleToNextCheckpoint = 0;
-        }
+
         // return (checked * 50000) - distanceToNextCheckpoint - (Math.abs(angleToNextCheckpoint) * 50) + vitesse * 10;
         return (checked * 50000)
                 - distanceToNextCheckpoint
-                - (Math.abs(angleToNextCheckpoint) * 50)
+
                 + (vitesse);
     }
 

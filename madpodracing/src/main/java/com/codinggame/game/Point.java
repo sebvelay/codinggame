@@ -1,5 +1,8 @@
 package com.codinggame.game;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.acos;
+
 public class Point {
     public double x;
     public double y;
@@ -18,13 +21,27 @@ public class Point {
     }
 
     public double getAngle(Point p2){
-        double dx = p2.x-x;
+
+        double d = this.distance(p2);
+
+        double dx = (p2.x - this.x) / d;
+        double dy = (p2.y - this.y) / d;
+
+        double a = acos(dx) * 180.0 / PI;
+
+        if (dy < 0) {
+            a = 360.0 - a;
+        }
+
+        return a;
+
+        /*double dx = p2.x-x;
         double dy = p2.y-y;
         double angle = Math.atan2(dy, dx);
         if (angle < 0) {
             angle += 360;
         }
-        return angle;
+        return angle;*/
     }
 
     public Point closest(Point a, Point b) {
