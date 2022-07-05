@@ -78,13 +78,9 @@ public class Player {
 
             Move[] move = turn.bestMove(pod1, pod2);
 
-            if (turnNumber == 1) {
-                System.out.println((int) pod1.getNextCheckpoint().x + " " + (int) pod1.getNextCheckpoint().y + " " + Constant.MAX_THRUST);
-                System.out.println((int) pod2.getNextCheckpoint().x + " " + (int) pod2.getNextCheckpoint().y + " " + Constant.MAX_THRUST);
-            } else {
-                System.out.println(pod1.getActionString(move[0]));
-                System.out.println(pod2.getActionString(move[1]));
-            }
+
+            System.out.println(pod1.getActionString(move[0]));
+            System.out.println(pod2.getActionString(move[1]));
 
 
         }

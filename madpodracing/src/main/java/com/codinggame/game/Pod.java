@@ -289,11 +289,11 @@ public class Pod extends Unit {
 
         double vitesse = Vector.speed(vx, vy);
 
-
+        double rotationToNext = getRotationToNextCheckpoint();
         // return (checked * 50000) - distanceToNextCheckpoint - (Math.abs(angleToNextCheckpoint) * 50) + vitesse * 10;
         return (checked * 50000)
                 - distanceToNextCheckpoint
-
+                - (Math.abs(rotationToNext) * 50)
                 + (vitesse);
     }
 
