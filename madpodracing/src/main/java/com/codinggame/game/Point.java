@@ -1,9 +1,9 @@
 package com.codinggame.game;
 
 import static java.lang.Math.PI;
-import static java.lang.Math.acos;
 
 public class Point {
+
     public double x;
     public double y;
 
@@ -27,7 +27,7 @@ public class Point {
         double dx = (p2.x - this.x) / d;
         double dy = (p2.y - this.y) / d;
 
-        double a = acos(dx) * 180.0 / PI;
+        double a = acosApprox(dx) * 180.0 / PI;
 
         if (dy < 0) {
             a = 360.0 - a;
@@ -42,6 +42,10 @@ public class Point {
             angle += 360;
         }
         return angle;*/
+    }
+
+    double acosApprox(double x) {
+        return (-0.69813170079773212 * x * x - 0.87266462599716477) * x + 1.5707963267948966;
     }
 
     public Point closest(Point a, Point b) {

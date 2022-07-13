@@ -40,7 +40,7 @@ class MapTest {
 
     }
 
-    @Test
+    /*@Test
     void addExistingCheckPoint() {
         Checkpoint checkpoint = new Checkpoint(0,0, 0);
         Map.addCheckpoints(checkpoint);
@@ -51,7 +51,7 @@ class MapTest {
 
 
         assertEquals(1, Map.getCheckpoints().size());
-    }
+    }*/
 
     @Test
     void equalsCheckpoint(){

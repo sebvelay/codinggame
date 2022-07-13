@@ -271,7 +271,7 @@ public class Pod extends Unit {
 
 
         this.nextCheckpoint = checkpoint;
-        if (Player.turnNumber == 1) {
+        if (Player.turnNumber == 1 && saveAngle == 0) {
             this.angle = this.getAngleToNextCheckpoint();
 
             if (Constant.DEBUG) {

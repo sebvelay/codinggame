@@ -26,7 +26,7 @@ class SimulationPrecisionTest {
         pod1.apply(move1,0);
 
         assertEquals(9253.0,pod.x);
-        assertEquals(6385.0,pod.y);
+        assertEquals(6384.0,pod.y);
 
         assertEquals(8098.0,pod1.x);
         assertEquals(5343.0,pod1.y);
